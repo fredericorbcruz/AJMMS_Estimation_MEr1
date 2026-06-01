@@ -7,9 +7,9 @@
 #
 # Programmed by:
 #
-# Frederico R. B. Cruz & Roberto C. Quinino
+# Frederico R. B. Cruz, Roberto C. Quinino
 # Universidade Federal de Minas Gerais
-# E-mail: fcruz@est.ufmg.br, roberto@est.ufmg.br
+# E-mail: {fcruz,roberto}@est.ufmg.br
 # (c) 2026 Cruz & Quinino
 # v.2026.05.26
 #
@@ -216,20 +216,20 @@ rhoLMEr1<-function(L,r){
 # maximum likelihood estimate for rho (state-of-the-art)
 ################################################################################
 MEr1RhoMLESoA<-function(samp,r) {
-  tol<-1E-06
+  Eps.MLE<-1E-06
   n<-length(samp)
   y<-sum(samp)
-  if (y/n<1)
+  if (y<n)
     return(y/n)
   else
-    return(1-tol)}
+    return(1-Eps.MLE)}
 
 ################################################################################
 # maximum likelihood estimate for rho
 ################################################################################
 MEr1RhoMLEf<-function(samp,r) {
   Eps.MLE<-1E-06
-  # log-likelihood function
+#  log-likelihood function
   loglike.f<-function(rho,samp,r) {
     n<-length(samp)
     infty<-max(samp)
@@ -239,12 +239,12 @@ MEr1RhoMLEf<-function(samp,r) {
     loglikef=0.0
     i<-2
     while (i<=n) {
-#      cat("i=",i,"\n")
+     # cat("i=",i,"\n")
       nij[samp[i-1]+1,samp[i]+1]<-nij[samp[i-1]+1,samp[i]+1]+1
       i<-i+1}
     j=0
     while (j<=infty) {
-#      cat("j=",j,"\n")
+     # cat("j=",j,"\n")
       phi1<-phi1+j*nij[0+1,j+1]
       phi2<-phi2+(r+j)*nij[0+1,j+1]
       loglikef=loglikef+nij[0+1,j+1]*log(choose(r+j-1,j))
@@ -260,9 +260,9 @@ MEr1RhoMLEf<-function(samp,r) {
         j<-j+1}
       i<-i+1}
     loglikef=loglikef+phi1*log(rho/r)-phi2*log(1+rho/r)
-#    cat("phi1=",phi1,"\t","phi2=",phi2,"\t",loglikef,"\n")
+   # cat("phi1=",phi1,"\t","phi2=",phi2,"\t",loglikef,"\n")
     return(loglikef)}
-  # likelihood function
+#  likelihood function
   like.f<-function(rho,samp,r) {
     n<-length(samp)
     infty<-max(samp)
@@ -280,7 +280,7 @@ MEr1RhoMLEf<-function(samp,r) {
       #      cat("j=",j,"\n")
       phi1<-phi1+j*nij[0+1,j+1]
       phi2<-phi2+(r+j)*nij[0+1,j+1]
-      likef=likef*(choose(r+j-1,j))^nij[0+1,j+1]
+      # likef=likef*(choose(r+j-1,j))^nij[0+1,j+1]
       j=j+1}
     i=1
     while (i<=infty) {
@@ -289,17 +289,49 @@ MEr1RhoMLEf<-function(samp,r) {
         #        cat("(i,j)=(",i,",",j,")\n")
         phi1<-phi1+(j-i+1)*nij[i+1,j+1]
         phi2<-phi2+(r+j-i+1)*nij[i+1,j+1]
-        likef=likef*(choose(r+j-i,j-i+1))^nij[i+1,j+1]
+        # likef=likef*(choose(r+j-i,j-i+1))^nij[i+1,j+1]
         j<-j+1}
       i<-i+1}
     likef=likef*(rho/r)^phi1*(1+rho/r)^(-phi2)
-#    cat("phi1=",phi1,"\t","phi2=",phi2,"\t",likef,"\n")
+   # cat("phi1=",phi1,"\t","phi2=",phi2,"\t",likef,"\n")
     return(likef)}
-  # maximization
-  # rho<-seq(0,1,0.01)
-  # plot(rho,like.f(rho,samp,r),type="l")
-  res<-optimize(loglike.f,c(Eps.MLE,1-Eps.MLE),samp,r,maximum=TRUE,tol=Eps.MLE)
-  return(res$maximum)}
+#   numerical maximization
+    # rho<-seq(0,1,0.01)
+    # plot(rho,like.f(rho,samp,r),type="l")
+    # res<-optimize(loglike.f,c(Eps.MLE,1-Eps.MLE),samp,r,maximum=TRUE,tol=Eps.MLE)$maximum
+#   analytical maximization
+#   find phi1 and phi2
+  n<-length(samp)
+  infty<-max(samp)
+  nij<-matrix(0,infty+1,infty+1)
+  phi1<-0.0
+  phi2<-0.0
+  i<-2
+  while (i<=n) {
+    #    cat("i=",i,"\n")
+    nij[samp[i-1]+1,samp[i]+1]<-nij[samp[i-1]+1,samp[i]+1]+1
+    i<-i+1}
+  j=0
+  while (j<=infty) {
+    #    cat("j=",j,"\n")
+    phi1<-phi1+j*nij[0+1,j+1]
+    phi2<-phi2+(r+j)*nij[0+1,j+1]
+    j=j+1}
+  i=1
+  while (i<=infty) {
+    j<-i-1
+    while (j<=infty) {
+      #      cat("(i,j)=(",i,",",j,")\n")
+      phi1<-phi1+(j-i+1)*nij[i+1,j+1]
+      phi2<-phi2+(r+j-i+1)*nij[i+1,j+1]
+      j<-j+1}
+    i<-i+1}
+  #  cat("phi1=",phi1,"\t","phi2=",phi2,"\n")
+  #   find maximum
+    if (r*phi1<(phi2-phi1))
+      return(r*phi1/(phi2-phi1))
+    else
+      return(1-Eps.MLE)}
 
 ################################################################################
 # maximum likelihood estimate for Lq
@@ -376,7 +408,7 @@ dGaussHypPostf<-function(x,samp,r,a,b,c,z) {
   return(dGaussHypPostf)}
 
 ################################################################################
-# MEr1RhoSELFf implements Bayesian estimation under SELF for rho in M/Er/1 queues
+# MEr1RhoSELFf implements Bayesian estimation under SELF for rho
 ################################################################################
 MEr1RhoSELFf<-function(samp,r,a,b,c,z) {
   GaussHypItg<-function(u,a,b,c,z) {
@@ -410,12 +442,12 @@ MEr1RhoSELFf<-function(samp,r,a,b,c,z) {
   #  cat("phi1=",phi1,"\t","phi2=",phi2,"\n")
   GaussHyp1F2a<-integrate(GaussHypItg,0,1,phi2+a,phi1+b+1,phi1+c+1,z)[[1]]/beta(phi1+b+1,c-b)
   GaussHyp1F2b<-integrate(GaussHypItg,0,1,phi2+a,phi1+b  ,phi1+c  ,z)[[1]]/beta(phi1+b  ,c-b)
-  MEr1RhoSELFf<-(phi1+b)*GaussHyp1F2a/(phi1+c)/GaussHyp1F2b
-  #  cat("MEr1RhoSELFf=",phi1+b,"/",GaussHyp1F2a,"/",(phi1+c),"/",GaussHyp1F2b,"=",MEr1RhoSELFf,"\n")
-  return(MEr1RhoSELFf)}
+  MEr1RhoSELF<-(phi1+b)*GaussHyp1F2a/(phi1+c)/GaussHyp1F2b
+  #  cat("MEr1RhoSELF=",phi1+b,"/",GaussHyp1F2a,"/",(phi1+c),"/",GaussHyp1F2b,"=",MEr1RhoSELFf,"\n")
+  return(MEr1RhoSELF)}
 
 ################################################################################
-# MEr1LqSELFf implements Bayesian estimation under SELF for Lq in M/Er/1 queues
+# MEr1LqSELFf implements Bayesian estimation under SELF for Lq
 ################################################################################
 MEr1LqSELFf<-function(samp,r,a,b,c,z) {
   GaussHypItg<-function(u,a,b,c,z) {
@@ -447,11 +479,11 @@ MEr1LqSELFf<-function(samp,r,a,b,c,z) {
       j<-j+1}
     i<-i+1}
   #  cat("phi1=",phi1,"\t","phi2=",phi2,"\n")
-  GaussHyp1F2a<-integrate(GaussHypItg,0,1,phi2+a,phi1+b+2,phi1+c+1,z)[[1]]/beta(phi1+b+1,c-b-1)
+  GaussHyp1F2a<-integrate(GaussHypItg,0,1,phi2+a,phi1+b+2,phi1+c+1,z)[[1]]/beta(phi1+b+2,c-b-1)
   GaussHyp1F2b<-integrate(GaussHypItg,0,1,phi2+a,phi1+b  ,phi1+c  ,z)[[1]]/beta(phi1+b  ,c-b  )
-  MEr1LqSELFf<-(r+1)/(2*r)*(phi1+b+1)*(phi1+b)*GaussHyp1F2a/(phi1+c)/(c-b-1)/GaussHyp1F2b
-  # cat("MEr1LqSELFf=", MEr1LqSELFf,"\n")
-  return(MEr1LqSELFf)}
+  MEr1LqSELF<-(r+1)*(phi1+b+1)*(phi1+b)*GaussHyp1F2a/(2*r)/(phi1+c)/(c-b-1)/GaussHyp1F2b
+  # cat("MEr1LqSELF=", MEr1LqSELF,"\n")
+  return(MEr1LqSELF)}
 
 ################################################################################
 # MEr1RhoPLFf implements Bayesian estimation under PLF for rho in M/Er/1 queues
@@ -487,10 +519,10 @@ MEr1RhoPLFf<-function(samp,r,a,b,c,z) {
     i<-i+1}
   #  cat("phi1=",phi1,"\t","phi2=",phi2,"\n")
   GaussHyp1F2a<-integrate(GaussHypItg,0,1,phi2+a,phi1+b+2,phi1+c+2,z)[[1]]/beta(phi1+b+2,c-b)
-  GaussHyp1F2b<-integrate(GaussHypItg,0,1,phi2+a,phi1+b  ,phi1+c  ,z)[[1]]/beta(phi1+b,c-b)
-  MEr1RhoPLFf<-sqrt((phi1+b+1)*(phi1+b)*GaussHyp1F2a/(phi1+c+1)/(phi1+c)/GaussHyp1F2b)
-#  cat("MEr1RhoPLFf=",phi1+b+1,"/",phi1+b,"/",GaussHyp1F2a,"/",phi1+c+1,"/",phi1+c,"/",GaussHyp1F2b,"=",MEr1RhoPLFf,"\n")
-  return(MEr1RhoPLFf)}
+  GaussHyp1F2b<-integrate(GaussHypItg,0,1,phi2+a,phi1+b  ,phi1+c  ,z)[[1]]/beta(phi1+b  ,c-b)
+  MEr1RhoPLF<-sqrt((phi1+b+1)*(phi1+b)*GaussHyp1F2a/(phi1+c+1)/(phi1+c)/GaussHyp1F2b)
+#  cat("MEr1RhoPLF=",phi1+b+1,"/",phi1+b,"/",GaussHyp1F2a,"/",phi1+c+1,"/",phi1+c,"/",GaussHyp1F2b,"=",MEr1RhoPLFf,"\n")
+  return(MEr1RhoPLF)}
 
 ################################################################################
 # MEr1LqPLFf implements Bayesian estimation under PLF for Lq in M/Er/1 queues
@@ -525,11 +557,11 @@ MEr1LqPLFf<-function(samp,r,a,b,c,z) {
       j<-j+1}
     i<-i+1}
   #  cat("phi1=",phi1,"\t","phi2=",phi2,"\n")
-  GaussHyp1F2a<-integrate(GaussHypItg,0,1,phi2+a,phi1+b+4,phi1+c+2,z)[[1]]/beta(phi1+b+4,c-b-2)
-  GaussHyp1F2b<-integrate(GaussHypItg,0,1,phi2+a,phi1+b  ,phi1+c  ,z)[[1]]/beta(phi1+b  ,c-b  )
-  MEr1LqPLFf<-(r+1)/(2*r)*sqrt((phi1+b+3)*(phi1+b+2)*(phi1+b+1)*(phi1+b)*GaussHyp1F2a/(phi1+c+1)/(phi1+c)/(c-b)/(c-b-1)/(c-b-1)/GaussHyp1F2b)
-  # cat("MEr1LqPLFf=", MEr1LqPLFf,"\n")
-  return(MEr1LqPLFf)}
+  GaussHyp1F2a<-integrate(GaussHypItg,0,1,phi2+a,phi1+b+4,phi1+c+2,z)$value/beta(phi1+b+4,c-b-2)
+  GaussHyp1F2b<-integrate(GaussHypItg,0,1,phi2+a,phi1+b  ,phi1+c  ,z)$value/beta(phi1+b  ,c-b  )
+  MEr1LqPLF<-(r+1)/(2*r)*sqrt((phi1+b+3)*(phi1+b+2)*(phi1+b+1)*(phi1+b)*GaussHyp1F2a/(phi1+c+1)/(phi1+c)/(c-b-1)/(c-b-2)/GaussHyp1F2b)
+  # cat("MEr1LqPLF=", MEr1LqPLF,"\n")
+  return(MEr1LqPLF)}
 
 ################################################################################
 # predictive distributions
@@ -572,6 +604,28 @@ MEr1Predf<-function(x,samp,r,a,b,c,z) {
     # cat(MEr1Predf[i],"\n")
   }
   return(MEr1Predf)}
+
+################################################################################
+# Bayesian credible region for rho in M/Er/1 queues
+################################################################################
+MEr1CR<-function(samp,r,a,b,c,z){
+  epsilon<-1e-04
+  sl<-0.05  # significance level
+  accum <- 0.0
+  x<-seq(0,1,by=epsilon)
+  dens<-dGaussHypPostf(x,samp,r,a,b,c,z)
+  # find inferior limit
+  i<-1
+  while (accum<(sl/2) && i<length(dens)){
+    i<-i+1
+    accum<-accum+epsilon*(dens[i-1]+dens[i])/2}
+  linf<-x[i-1]
+  # find superior limit
+  while (accum<(1-sl/2) && i<length(dens)){
+    i<-i+1
+    accum<-accum+epsilon*(dens[i-1]+dens[i])/2}
+  lsup<-x[i]
+  return(list(linf=linf,lsup=lsup))}
 
 ################################################################################
 # Monte Carlo simulation for rho MLE state-of-the-art
@@ -623,6 +677,29 @@ MEr1MonteCarloLq<-function(size,Lq,r,fEst,...){
   return(c(mest,vest,mest-Lq,sqrt(vest+(mest-Lq)^2)))}
 
 ################################################################################
+# Monte Carlo simulation for credible regions
+################################################################################
+MEr1MonteCarloCR<-function(size,rho,r,a,b,c){
+  set.seed(2026)
+  mcRep<-1000
+  crcover<-0
+  crlength<-numeric(length(size))
+  est<-numeric(mcRep)
+  for(i in 1:mcRep){
+    # cat("MEr1MonteCarloCR:i=",i,"\n")
+    smp<-rMEr1(size,rho,r)
+    cr<-MEr1CR(smp,r,a,b,c,-1/r)
+    # cat("MEr1MonteCarloCR: ci=",cr$linf,cr$lsup,"\n")
+    if ((cr$linf<=rho)&&(rho<=cr$lsup))
+      crcover=crcover+1
+    end
+    crlength[i]=cr$lsup-cr$linf
+  }
+  crmean<-mean(crlength)
+  crcover<-crcover/mcRep
+  return(c(crmean=crmean,crcover=crcover))}
+
+################################################################################
 # Monte Carlo table for rho MLE state-of-the-art
 ################################################################################
 MEr1MonteCarloRhoSoATab<-function(sizes,rhos,r){
@@ -660,6 +737,20 @@ MEr1MonteCarloLqTab<-function(sizes,Lqs,r,fEst,...){
     for (j in 1:length(sizes)){
       est<-MEr1MonteCarloLq(sizes[j],Lqs[i],r,fEst,...)
       tab[i,(4*(j-1)+2):(4*(j-1)+5)]<-est
+    }
+  }
+  return(tab)}
+
+################################################################################
+# Monte Carlo table for confidence region
+################################################################################
+MEr1MonteCarloCRTab<-function(sizes,rhos,r,a,b,c){
+  tab<-matrix(nrow=length(rhos),ncol=1+2*length(sizes))
+  for (i in 1:length(rhos)){
+    tab[i,1]<-rhos[i]
+    for (j in 1:length(sizes)){
+      est<-MEr1MonteCarloCR(sizes[j],rhos[i],r,a,b,c)
+      tab[i,(2*(j-1)+2):(2*(j-1)+3)]<-est
     }
   }
   return(tab)}
@@ -1196,6 +1287,87 @@ ExExcel(MEr1LqRes4)
 ExExcel(rbind(cbind(PAxGH1,PAxGH4),cbind(PAxB1,PAxB4)))
 
 ################################################################################
+# Monte Carlo tables for credible region
+################################################################################
+{# rem_var()
+  # Monte Carlo table for CR for rho under HG-SELF r = 1
+  # rem_var()
+  r<-1
+  rhos<-c(0.01,0.10,0.20,0.50,0.70,0.90,0.99)
+  sizes<-c(10,20,50,100,200)
+  a<-1
+  b<-2
+  c<-6
+  gammap<-a
+  alphap<-b
+  betap <-c-b
+  MEr1CRHGSELF1<-MEr1MonteCarloCRTab(sizes,rhos,r,gammap,alphap,alphap+betap)
+  
+  # Monte Carlo table for CR for rho under B-SELF r = 1
+  # rem_var()
+  r<-1
+  rhos<-c(0.01,0.10,0.20,0.50,0.70,0.90,0.99)
+  sizes<-c(10,20,50,100,200)
+  gammap<-0
+  alphap<-2
+  betap <-4
+  a<-gammap
+  b<-alphap
+  c<-alphap+betap
+  MEr1CRBSELF1<-MEr1MonteCarloCRTab(sizes,rhos,r,a,b,c)
+}
+
+# save results
+MEr1CRRes1<-rbind(MEr1CRHGSELF1,MEr1CRBSELF1)
+save(MEr1CRRes1,file='MEr1CRRes1.rdata')
+
+# load results
+# load(file='MEr1CRRes1')
+
+# export results to Excel
+ExExcel(MEr1CRRes1)
+
+{# rem_var()
+  # Monte Carlo table for CR for rho under HG-SELF r = 4
+  # rem_var()
+  r<-4
+  rhos<-c(0.01,0.10,0.20,0.50,0.70,0.90,0.99)
+  sizes<-c(10,20,50,100,200)
+  a<-1
+  b<-2
+  c<-6
+  gammap<-a
+  alphap<-b
+  betap <-c-b
+  MEr1CRHGSELF4<-MEr1MonteCarloCRTab(sizes,rhos,r,gammap,alphap,alphap+betap)
+  
+  # Monte Carlo table for CR for rho under B-SELF r = 4
+  # rem_var()
+  r<-4
+  rhos<-c(0.01,0.10,0.20,0.50,0.70,0.90,0.99)
+  sizes<-c(10,20,50,100,200)
+  gammap<-0
+  alphap<-2
+  betap <-4
+  a<-gammap
+  b<-alphap
+  c<-alphap+betap
+  MEr1CRBSELF4<-MEr1MonteCarloCRTab(sizes,rhos,r,a,b,c)
+}
+
+# save results
+MEr1CRRes4<-rbind(MEr1CRHGSELF4,MEr1CRBSELF4)
+save(MEr1CRRes4,file='MEr1CRRes4.rdata')
+
+# load results
+# load(file='MEr1CRRes4')
+
+# export results to Excel
+ExExcel(MEr1CRRes4)
+
+stop("Simulation concluded")
+
+################################################################################
 # tests
 ################################################################################
 
@@ -1208,21 +1380,21 @@ res2<-rgeom(n=100,p=(1-0.5))
 table(res2)
 plot(table(res1),type="h")
 plot(table(res2),type="h")
-rMEr1(n=10,rho=0.50,r=1)
-rMEr1(n=10,rho=0.99,r=1)
+(rMEr1(n=10,rho=0.50,r=4))
+(rMEr1(n=10,rho=0.99,r=4))
 
 # testing function for traffic intensity, rho, for a given Lq or L
 # rem_var()
-r<-3
+r<-4
 rho<-0.9
 for (rho in seq(0.001,0.999,0.05)) {
   Lq<-LqMEr1(rho,r)
   cat("Lq(rho=", rho, ")=", Lq, "\n")
-  rhoEst<-rhoMEr1(Lq,r,LqMEr1)
+  rhoEst<-rhoLqMEr1(Lq,r)
   cat("rho(Lq=", Lq, ")=", rhoEst, "\n")
   L<-LMEr1(rho,r)
   cat("L(rho=", rho, ")=", L, "\n")
-  rhoEst<-rhoMEr1(L,r,LMEr1)
+  rhoEst<-rhoLMEr1(L,r)
   cat("rho(L=", L, ")=", rhoEst, "\n")}
 
 # testing posterior distribution
@@ -1247,63 +1419,50 @@ plot(rho,dGaussHypPostf(rho,smer1,r,gammap,alphap,alphap+betap,-1/r),
 
 # testing MLE for rho (state of the art)
 # rem_var()
-r<-1
+r<-4
 rho<-0.50
 set.seed(2026)
 smer12<-rnbinom(n=200,r,1/(1+rho/r))
-MEr1RhoMLESoA(smer12,r)
+(MEr1RhoMLESoA(smer12,r))
 
 # testing MLE for rho
 # rem_var()
-r<-1
+r<-4
 rho<-0.50
 set.seed(2026)
 smer1<-rMEr1(n=200,rho,r)
-MEr1RhoMLEf(smer1,r)
-
-# testing Bayes estimator for rho under squared error loss function (SELF)
-# rem_var()
-r<-1
-rho<-0.50
-a<-1
-b<-2
-c<-6
-gammap<-a
-alphap<-b
-betap <-c-b
-set.seed(2026)
-smer1<-rMEr1(n=200,rho,r)
-mer1ErhoItg<-function(x,samp,r,a,b,c,z) return(x*dGaussHypPostf(x,samp,r,a,b,c,z))
-integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)[[1]]
-MEr1RhoSELFf(smer1,r,gammap,alphap,alphap+betap,-1/r)
-
-# testing Bayes estimator for rho under precautionary loss function (PLF)
-r<-1
-rho<-0.50
-a<-1
-b<-2
-c<-6
-gammap<-a
-alphap<-b
-betap <-c-b
-set.seed(2026)
-smer1<-rMEr1(n=200,rho,r)
-mer1ErhoItg<-function(x,samp,r,a,b,c,z) return(x^2*dGaussHypPostf(x,samp,r,a,b,c,z))
-sqrt(integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)[[1]])
-MEr1RhoPLFf(smer1,r,gammap,alphap,alphap+betap,-1/r)
+(MEr1RhoMLEf(smer1,r))
 
 # testing MLE for Lq
 # rem_var()
-r<-1
+r<-4
 Lq<-1.0
 rho<-rhoLqMEr1(Lq,r)
 set.seed(2026)
 smer1<-rMEr1(n=200,rho,r)
-MEr1LqMLEf(smer1,r)
+(MEr1LqMLEf(smer1,r))
 
-# testing Bayes estimates for Lq under squared erro loss function (SELF)
+# testing Bayes estimator under squared error loss function (SELF) for rho 
 # rem_var()
-r<-1
+r<-4
+rho<-0.50
+a<-1
+b<-2
+c<-6
+gammap<-a
+alphap<-b
+betap <-c-b
+set.seed(2026)
+smer1<-rMEr1(n=200,rho,r)
+(MEr1RhoSELF<-MEr1RhoSELFf(smer1,r,gammap,alphap,alphap+betap,-1/r))
+# numerical checking
+mer1ErhoItg<-function(x,samp,r,a,b,c,z) return(x*dGaussHypPostf(x,samp,r,a,b,c,z))
+(MEr1RhoSELFChk<-integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)$value)
+cat("Error=", MEr1RhoSELF-MEr1RhoSELFChk,"\n")
+
+# testing Bayes estimates under squared error loss function (SELF) for Lq 
+# rem_var()
+r<-4
 a<-1
 b<-2
 c<-6
@@ -1311,16 +1470,37 @@ gammap<-a
 alphap<-b
 betap <-c-b
 Lq=1.0
-rho<-rhoMEr1(Lq,r,LqMEr1)
+rho<-rhoLqMEr1(Lq,r)
 set.seed(2026)
 smer1<-rMEr1(n=200,rho,r)
-mer1ErhoItg<-function(x,samp,r,a,b,c,z) return(x*dGaussHypPostf(x,samp,r,a,b,c,z))
-integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)[[1]]
-MEr1RhoSELFf(smer1,r,gammap,alphap,alphap+betap,-1/r)
+(MEr1LqSELF<-MEr1LqSELFf(smer1,r,gammap,alphap,alphap+betap,-1/r))
+# numerical checking
+mer1ErhoItg<-function(x,samp,r,a,b,c,z)
+  return(((r+1)*x^2/(2*r)/(1-x))*dGaussHypPostf(x,samp,r,a,b,c,z))
+(MEr1LqSELFChk<-integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)$value)
+cat("Error=", MEr1LqSELF-MEr1LqSELFChk,"\n")
+
+# testing Bayes estimator under precautionary loss function (PLF) for rho
+r<-4
+rho<-0.50
+a<-1
+b<-2
+c<-6
+gammap<-a
+alphap<-b
+betap <-c-b
+set.seed(2026)
+smer1<-rMEr1(n=200,rho,r)
+(MEr1RhoPLF<-MEr1RhoPLFf(smer1,r,gammap,alphap,alphap+betap,-1/r))
+# numerical checking
+mer1ErhoItg<-function(x,samp,r,a,b,c,z)
+              return(x^2*dGaussHypPostf(x,samp,r,a,b,c,z))
+(MEr1RhoPLFChk<-sqrt(integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)$value))
+cat("Error=", MEr1RhoPLF-MEr1RhoPLFChk,"\n")
 
 # testing Bayes estimates for Lq under precautionary loss function (PLF)
 # rem_var()
-r<-1
+r<-4
 a<-1
 b<-2
 c<-6
@@ -1328,12 +1508,15 @@ gammap<-a
 alphap<-b
 betap <-c-b
 Lq=1.0
-rho<-rhoMEr1(Lq,r,LqMEr1)
+rho<-rhoLqMEr1(Lq,r)
 set.seed(2026)
 smer1<-rMEr1(n=200,rho,r)
-mer1ErhoItg<-function(x,samp,r,a,b,c,z) return(x^2*dGaussHypPostf(x,samp,r,a,b,c,z))
-sqrt(integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)[[1]])
-MEr1RhoPLFf(smer1,r,gammap,alphap,alphap+betap,-1/r)
+(MEr1LqPLF<-MEr1LqPLFf(smer1,r,gammap,alphap,alphap+betap,-1/r))
+# numerical checking
+mer1ErhoItg<-function(x,samp,r,a,b,c,z)
+  return(((r+1)*x^2/(2*r)/(1-x))^2*dGaussHypPostf(x,samp,r,a,b,c,z))
+(MEr1LqPLFChk<-sqrt(integrate(mer1ErhoItg,0,1,smer1,r,gammap,alphap,alphap+betap,-1/r)$value))
+cat("Error=", MEr1LqPLF-MEr1LqPLFChk,"\n")
 
 # testing Monte Carlo functions
 # MLE state-of-the-art
@@ -1395,6 +1578,18 @@ r<-1
 Lqs<-c(0.50)
 sizes<-c(100)
 MEr1MonteCarloLqTab(sizes,rhos,r,MEr1LqMLEf)
+
+# testing Monte Carlo table for creadible region for Gauss hypergeometric
+r<-1
+rho<-0.50
+size<-100
+a<-1
+b<-2
+c<-6
+gammap<-a
+alphap<-b
+betap <-c-b
+MEr1MonteCarloCR(size,rho,r,gammap,alphap,alphap+betap)
 
 ################################################################################
 # THE END
