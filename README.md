@@ -1,3 +1,5 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 # Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length
 
 This repository contains the R code required to reproduce the computational experiments presented in the manuscript:
