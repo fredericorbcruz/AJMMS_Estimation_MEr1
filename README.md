@@ -1,4 +1,52 @@
-# AJMMS_Estimation_MEr1
-Developed scripts for reproducing the computational experiments presented in the manuscript entitled "Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length", currently under review at the "American Journal of Mathematical and Management Sciences".
+# Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length
 
-If you use this code in academic work, please cite the associated article.
+This repository contains the R code required to reproduce the computational experiments presented in the manuscript:
+
+**Saroja Kumar Singh, Frederico R. B. Cruz, and Roberto C. Quinino**
+*Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length*,
+*American Journal of Mathematical and Management Sciences* (under review), 2026.
+ISSN: 0196-6324.
+
+## Abstract
+
+Researchers in queueing theory have a primary focus on understanding queue behavior, with a particular emphasis on determining the traffic intensity, a crucial metric representing the proportion of time a queue remains busy. This article addresses the mathematical challenge of estimating this parameter using inferential methods, adopting a Bayesian perspective. Specifically, our study centers on the Erlang single server queueing model and we present a range of closed-form expressions for posterior inference and prediction. Furthermore, we delve into interval estimates and hypothesis tests for performance metrics. To gather our data, we employ a discrete event simulation algorithm allowing us to thoroughly analyze the performance of our proposed estimators. Notably, our findings reveal that the Bayesian estimators not only provide numerically feasible solutions but may also offer advantages when reliable prior information is available and in scenarios involving larger average queue lengths. This study offers valuable insights into the field of queueing theory, shedding light on effective parameter estimation techniques.
+
+## Repository Structure
+
+- `MEr1260526.R`  
+  Main script used to reproduce all computational experiments reported in the manuscript.
+
+## Reproducibility
+
+To reproduce the numerical results, run:
+
+```r
+source("MEr1260526.R")
+```
+
+The script generates the simulation outputs and summary measures reported in the manuscript.
+
+## Citation
+
+If you use this repository in academic work, please cite both the associated manuscript and the software repository.
+
+### BibTeX
+
+```bibtex
+@misc{CrQuSi2026,
+  author       = {Frederico R. B. Cruz and Roberto C. Quinino and Saroja Kumar Singh},
+  title        = {{AJMMS\_Estimation\_MEr1}: Source Code for Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length},
+  year         = {2026},
+  publisher    = {GitHub},
+  howpublished = {\url{https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1}},
+  note         = {Accessed: 2026-05-26}
+}
+```
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+Copyright (c) 2026 Frederico R. B. Cruz, Roberto C. Quinino, and Saroja Kumar Singh.
+
+If you use this repository in academic work, please cite both the associated manuscript and the software repository.
