@@ -1,72 +1,14 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite the associated manuscript and this repository."
-title: "Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length"
-type: software
-
+message: "If you use this software, please cite it as below."
 authors:
-
-* family-names: Cruz
-  given-names: Frederico R. B.
-* family-names: Quinino
-  given-names: Roberto C.
-* family-names: Singh
-  given-names: Saroja Kumar
-
-abstract: >
-R code and simulation results supporting the manuscript
-"Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length",
-including the computational experiments, tables, and figures.
-
-repository-code: "https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1"
-
-keywords:
-
-* Queueing
-* M/G/1 queue
-* M/Er/1 queue
-* Bayesian inference
-* Traffic intensity
-* Credible regions
-* Reproducible research
-
-license: MIT
-
+- family-names: "YOUR_NAME_HERE"
+  given-names: "YOUR_NAME_HERE"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Lisa"
+  given-names: "Mona"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "AJMMS_Estimation_MEr1"
 version: 1.0.0
-
-date-released: 2026-05-26
-cff-version: 1.2.0
-message: "If you use this software, please cite the associated manuscript and this repository."
-title: "Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length"
-type: software
-
-authors:
-
-* family-names: Cruz
-  given-names: Frederico R. B.
-* family-names: Quinino
-  given-names: Roberto C.
-* family-names: Singh
-  given-names: Saroja Kumar
-
-abstract: >
-R code and simulation results supporting the manuscript
-"Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length",
-including the computational experiments, tables, and figures.
-
-repository-code: "https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1"
-
-keywords:
-
-* Queueing
-* M/G/1 queue
-* M/Er/1 queue
-* Bayesian inference
-* Traffic intensity
-* Credible region
-* Reproducible research
-
-license: MIT
-
-version: 1.0.0
-
-date-released: 2026-05-26
+doi: 10.5281/zenodo.1234
+date-released: 2026-06-04
+url: "https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1"
