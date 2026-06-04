@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length
+# AJMMS_Estimation_MEr1: Source Code for Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length
 
 This repository contains the R code required to reproduce the computational experiments presented in the manuscript:
 
@@ -59,7 +59,19 @@ The script generates the simulation outputs and summary measures reported in the
 
 If you use this repository in academic work, please cite both the associated manuscript and the software repository.
 
-## BibTeX
+## BibTeX for the manuscript
+
+```bibtex
+@article{SiCrQu2026,
+  author       = {Saroja Kumar Singh and Frederico R. B. Cruz and Roberto C. Quinino},
+  title        = {Bayesian inference in {Erlang} single server queueing model based on queue length},
+  journal      = {American Journal of Mathematical and Management Sciences},
+  year         = {2026},
+  note         = {(under review)},
+}
+```
+
+## BibTeX for the softare repository
 
 ```bibtex
 @misc{CrQuSi2026,
