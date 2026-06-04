@@ -12,7 +12,7 @@ authors:
 * family-names: Singh
   given-names: Saroja Kumar
 
-abstract: >
+abstract:
 R code and simulation results supporting the manuscript
 "Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length",
 including the computational experiments, tables, and figures.
@@ -32,4 +32,4 @@ license: MIT
 
 version: 1.0.0
 
-date-released: 2026-06-04
+date-released: 2026-05-26
