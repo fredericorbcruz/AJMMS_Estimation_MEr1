@@ -1,6 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the associated manuscript and this repository."
 title: "AJMMS_Estimation_MEr1: Source code for Bayesian inference in Erlang single server queueing model based on queue length"
+type: misc
 authors:
 - family-names: Cruz
   given-names: Frederico R. B.
