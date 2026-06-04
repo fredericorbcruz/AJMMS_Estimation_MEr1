@@ -1,22 +1,22 @@
-cff-version: "1.2.0"
-message: "If you use this software, please cite the associated manuscript and this repository."
-title: "AJMMS_Estimation_MEr1: Source code for Bayesian inference in Erlang single server queueing model based on queue length"
+cff-version: 1.2.0
+message: If you use this software, please cite the associated manuscript and this repository.
+title: AJMMS_Estimation_MEr1: Source code for Bayesian inference in Erlang single server queueing model based on queue length
 authors:
-- family-names: "Cruz"
-  given-names: "Frederico R. B."
-- family-names: "Quinino"
-  given-names: "Roberto C."
-- family-names: "Singh"
-  given-names: "Saroja Kumar"
-version: "1.0.0"
-date-released: "2026-05-26"
-repository-code: "https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1"
-abstract: "R code and simulation results supporting the manuscript Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length."
+- family-names: Cruz
+  given-names: Frederico R. B.
+- family-names: Quinino
+  given-names: Roberto C.
+- family-names: Singh
+  given-names: Saroja Kumar
+version: 1.0.0
+date-released: 2026-05-26
+url: https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1
+abstract: R code and simulation results supporting the manuscript Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length.
 keywords:
-- "Queueing"
-- "M/G/1 queue"
-- "M/Er/1 queue"
-- "Bayesian inference"
-- "Credible regions"
-- "Reproducible research"
-license: "MIT"
+- Queueing
+- M/G/1 queue
+- M/Er/1 queue
+- Bayesian inference
+- Credible regions
+- Reproducible research
+license: MIT
