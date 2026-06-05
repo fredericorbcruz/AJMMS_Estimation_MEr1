@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-# AJMMS_Estimation_MEr1: Source Code for Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length
+# AJMMS_Estimation_MEr1: Source Code for 'Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length'
 
 This repository contains the R code required to reproduce the computational experiments presented in the manuscript:
 
@@ -71,15 +71,15 @@ If you use this repository in academic work, please cite both the associated man
 }
 ```
 
-## BibTeX for the softare repository
+## BibTeX for the software repository
 
 ```bibtex
 @misc{CrQuSi2026,
   author       = {Frederico R. B. Cruz and Roberto C. Quinino and Saroja Kumar Singh},
-  title        = {{AJMMS\_Estimation\_MEr1}: Source Code for Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length},
+  title        = {{AJMMS\_Estimation\_MEr1}: {Source} code for {Bayesian} inference in {Erlang} single server queueing model based on queue length},
   year         = {2026},
   publisher    = {GitHub},
-  howpublished = {\url{https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1}},
+  howpublished = {\url{https://github.com/fredericorbcruz/AJMMS\string_Estimation\string_MEr1}},
   note         = {Accessed: 2026-05-26}
 }
 ```
