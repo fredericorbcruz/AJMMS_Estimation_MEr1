@@ -764,7 +764,7 @@ rem_var()
 # plotting prior Gaussian hypergeometric distributions
 ################################################################################
 {setEPS()
-postscript(paste("FiGaussHypR.eps",sep=""),width=10.5*1.0,height=8*1.0)
+postscript(paste("FiGaussHypR.eps",sep=""),width=10.5*0.8,height=8*0.8)
 # dev.new(width=10.5*0.5,height=8*0.5)
 par(mfrow=c(1,1))
 # rem_var()
@@ -812,7 +812,7 @@ graphics.off()
 # plotting prior beta distributions
 ################################################################################
 {setEPS()
-postscript(paste("FiBetaR.eps",sep=""),width=10.5*1.0,height=8*1.0)
+postscript(paste("FiBetaR.eps",sep=""),width=10.5*0.8,height=8*0.8)
 # dev.new(width=10.5*0.5,height=8*0.5)
 par(mfrow=c(1,1))
 # rem_var()
