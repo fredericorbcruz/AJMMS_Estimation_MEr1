@@ -1006,19 +1006,19 @@ ExExcel(MEr1LqRes4)
   x<-seq(0,10,1)
   set.seed(2026)
   smer1<-rMEr1(n=20,rho=0.50,r)
-  hxDGH1<-MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r)
+  MEr1hxDGH1<-MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r)
   #
   set.seed(2026)
   smer1<-rMEr1(n=50,rho=0.50,r)
-  hxDGH1<-cbind(hxDGH1,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
+  MEr1hxDGH1<-cbind(MEr1hxDGH1,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=100,rho=0.50,r)
-  hxDGH1<-cbind(hxDGH1,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
+  MEr1hxDGH1<-cbind(MEr1hxDGH1,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=200,rho=0.50,r)
-  hxDGH1<-cbind(hxDGH1,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
+  MEr1hxDGH1<-cbind(MEr1hxDGH1,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
 
   # rem_var()
   # computing predictive distribution for r = 4
@@ -1032,30 +1032,30 @@ ExExcel(MEr1LqRes4)
   x<-seq(0,10,1)
   set.seed(2026)
   smer1<-rMEr1(n=20,rho=0.50,r)
-  hxDGH4<-MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r)
+  MEr1hxDGH4<-MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r)
   #
   set.seed(2026)
   smer1<-rMEr1(n=50,rho=0.50,r)
-  hxDGH4<-cbind(hxDGH4,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
+  MEr1hxDGH4<-cbind(MEr1hxDGH4,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=100,rho=0.50,r)
-  hxDGH4<-cbind(hxDGH4,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
+  MEr1hxDGH4<-cbind(MEr1hxDGH4,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=200,rho=0.50,r)
-  hxDGH4<-cbind(hxDGH4,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
+  MEr1hxDGH4<-cbind(MEr1hxDGH4,MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r))
 }
 
 # save results
-hxDGH<-cbind(hxDGH1,hxDGH4)
-save(hxDGH,file='hxDGH.rdata')
+MEr1hxDGH<-cbind(MEr1hxDGH1,MEr1hxDGH4)
+save(MEr1hxDGH,file='MEr1hxDGH.rdata')
 
 # load results
-# load(file='hxDGH.rdata')
+# load(file='MEr1hxDGH.rdata')
 
 # export results to Excel
-ExExcel(hxDGH)
+ExExcel(MEr1hxDGH)
 
 ################################################################################
 # computing predictive distribution for a prior beta
@@ -1072,19 +1072,19 @@ ExExcel(hxDGH)
   x<-seq(0,10,1)
   set.seed(2026)
   smer1<-rMEr1(n=20,rho=0.50,r)
-  hxDB1<-MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r)
+  MEr1hxDB1<-MEr1Predf(x,smer1,r,gammap,alphap,alphap+betap,-1/r)
   #
   set.seed(2026)
   smer1<-rMEr1(n=50,rho=0.50,r)
-  hxDB1<-cbind(hxDB1,MEr1Predf(x,smer1,r,a,b,c,-1/r))
+  MEr1hxDB1<-cbind(MEr1hxDB1,MEr1Predf(x,smer1,r,a,b,c,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=100,rho=0.50,r)
-  hxDB1<-cbind(hxDB1,MEr1Predf(x,smer1,r,a,b,c,-1/r))
+  MEr1hxDB1<-cbind(MEr1hxDB1,MEr1Predf(x,smer1,r,a,b,c,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=200,rho=0.50,r)
-  hxDB1<-cbind(hxDB1,MEr1Predf(x,smer1,r,a,b,c,-1/r))
+  MEr1hxDB1<-cbind(MEr1hxDB1,MEr1Predf(x,smer1,r,a,b,c,-1/r))
 
   # rem_var()
   # computing predictive distribution for r = 4
@@ -1098,30 +1098,30 @@ ExExcel(hxDGH)
   x<-seq(0,10,1)
   set.seed(2026)
   smer1<-rMEr1(n=20,rho=0.50,r)
-  hxDB4<-MEr1Predf(x,smer1,r,a,b,c,-1/r)
+  MEr1hxDB4<-MEr1Predf(x,smer1,r,a,b,c,-1/r)
   #
   set.seed(2026)
   smer1<-rMEr1(n=50,rho=0.50,r)
-  hxDB4<-cbind(hxDB4,MEr1Predf(x,smer1,r,a,b,c,-1/r))
+  MEr1hxDB4<-cbind(MEr1hxDB4,MEr1Predf(x,smer1,r,a,b,c,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=100,rho=0.50,r)
-  hxDB4<-cbind(hxDB4,MEr1Predf(x,smer1,r,a,b,c,-1/r))
+  MEr1hxDB4<-cbind(MEr1hxDB4,MEr1Predf(x,smer1,r,a,b,c,-1/r))
   #
   set.seed(2026)
   smer1<-rMEr1(n=200,rho=0.50,r)
-  hxDB4<-cbind(hxDB4,MEr1Predf(x,smer1,r,a,b,c,-1/r))
+  MEr1hxDB4<-cbind(MEr1hxDB4,MEr1Predf(x,smer1,r,a,b,c,-1/r))
 }
 
 # save results
-hxDB<-cbind(hxDB1,hxDB4)
-save(hxDB,file='hxDB.rdata')
+MEr1hxDB<-cbind(MEr1hxDB1,MEr1hxDB4)
+save(MEr1hxDB,file='MEr1hxDB.rdata')
 
 # load results
-# load(file='hxDB.rdata')
+# load(file='MEr1hxDB.rdata')
 
 # export results to Excel
-ExExcel(hxDB)
+ExExcel(MEr1hxDB)
 
 ################################################################################
 # Monte Carlo tables for credible region
