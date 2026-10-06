@@ -9,7 +9,7 @@ authors:
 - family-names: "Singh"
   given-names: "Saroja Kumar"
 version: 1.0.0
-date-released: 2026-05-26
+date-released: 2026-10-01
 url: "https://github.com/fredericorbcruz/AJMMS_Estimation_MEr1"
 abstract: "R code and simulation results supporting the manuscript Bayesian Inference in Erlang Single-Server Queueing Model Based on Queue Length."
 keywords:
