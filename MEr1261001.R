@@ -760,7 +760,7 @@ MEr1RhoRes1<-rbind(MEr1RhoMLE1,MEr1RhoHGSELF1,MEr1RhoHGPLF1,
 save(MEr1RhoRes1,file='MEr1RhoRes1.rdata')
 
 # load results
-# load(file='MEr1RhoRes1.rdata')
+load(file='MEr1RhoRes1.rdata')
 
 # export results to Excel
 ExExcel(MEr1RhoRes1)
@@ -834,7 +834,7 @@ MEr1RhoRes4<-rbind(MEr1RhoMLE4,MEr1RhoHGSELF4,MEr1RhoHGPLF4,
 save(MEr1RhoRes4,file='MEr1RhoRes4.rdata')
 
 # load results
-# load(file='MEr1RhoRes4.rdata')
+load(file='MEr1RhoRes4.rdata')
 
 # export results to Excel
 ExExcel(MEr1RhoRes4)
@@ -911,7 +911,7 @@ MEr1LqRes1<-rbind(MEr1LqMLE1,MEr1LqHGSELF1,MEr1LqHGPLF1,
 save(MEr1LqRes1,file='MEr1LqRes1.rdata')
 
 # load results
-# load(file='MEr1LqRes1.rdata')
+load(file='MEr1LqRes1.rdata')
 
 # export results to Excel
 ExExcel(MEr1LqRes1)
@@ -986,13 +986,13 @@ MEr1LqRes4<-rbind(MEr1LqMLE4,MEr1LqHGSELF4,MEr1LqHGPLF4,
 save(MEr1LqRes4,file='MEr1LqRes4.rdata')
 
 # load results
-# load(file='MEr1LqRes4.rdata')
+load(file='MEr1LqRes4.rdata')
 
 # export results to Excel
 ExExcel(MEr1LqRes4)
 
 ################################################################################
-# computing predictive distribution for a prior Gaussian hypergeometric
+# computing predictive distribution under a prior Gaussian hypergeometric
 ################################################################################
 {# rem_var()
   # computing predictive distribution for r = 1
@@ -1052,13 +1052,13 @@ MEr1hxDGH<-cbind(MEr1hxDGH1,MEr1hxDGH4)
 save(MEr1hxDGH,file='MEr1hxDGH.rdata')
 
 # load results
-# load(file='MEr1hxDGH.rdata')
+load(file='MEr1hxDGH.rdata')
 
 # export results to Excel
 ExExcel(MEr1hxDGH)
 
 ################################################################################
-# computing predictive distribution for a prior beta
+# computing predictive distribution under a prior beta
 ################################################################################
 {# rem_var()
   # computing predictive distribution for r = 1
@@ -1118,7 +1118,7 @@ MEr1hxDB<-cbind(MEr1hxDB1,MEr1hxDB4)
 save(MEr1hxDB,file='MEr1hxDB.rdata')
 
 # load results
-# load(file='MEr1hxDB.rdata')
+load(file='MEr1hxDB.rdata')
 
 # export results to Excel
 ExExcel(MEr1hxDB)
@@ -1159,7 +1159,7 @@ MEr1CRRes1<-rbind(MEr1CRHGSELF1,MEr1CRBSELF1)
 save(MEr1CRRes1,file='MEr1CRRes1.rdata')
 
 # load results
-# load(file='MEr1CRRes1.rdata')
+load(file='MEr1CRRes1.rdata')
 
 # export results to Excel
 ExExcel(MEr1CRRes1)
@@ -1197,7 +1197,7 @@ MEr1CRRes4<-rbind(MEr1CRHGSELF4,MEr1CRBSELF4)
 save(MEr1CRRes4,file='MEr1CRRes4.rdata')
 
 # load results
-# load(file='MEr1CRRes4.rdata')
+load(file='MEr1CRRes4.rdata')
 
 # export results to Excel
 ExExcel(MEr1CRRes4)
