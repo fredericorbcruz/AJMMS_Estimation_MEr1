@@ -16,7 +16,7 @@ Researchers in queueing theory have a primary focus on understanding queue behav
 
 ## Repository Structure
 
-* `MEr1261001.R`
+* `MEr1261006.R`
   Main script used to reproduce all computational experiments reported in the manuscript.
 
 ## Simulation Results
@@ -93,7 +93,7 @@ If you use this repository in academic work, please cite both the associated man
   year         = {2026},
   publisher    = {GitHub},
   howpublished = {\url{https://github.com/fredericorbcruz/AJMMS\string_Estimation\string_MEr1}},
-  note         = {Accessed: 2026-10-01}
+  note         = {Accessed: 2026-10-06}
 }
 ```
 
